@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Search</title>
+    <link rel="stylesheet" href="styles/kittasearch.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="images/logo.png" alt="my logo" class="logo">
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li><a class="navbar-link" href="/">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <section class="section-search">
+            <select name="gabisa" id="gabisa" class="search-input">
+                <option>छान्नुहोस्</option>
+                <option>गणेशपुर</option>
+            </select>
+            <select name="ward" id="ward" class="search-input">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
+            <input type="number" name="kitta" id="kitta" min="1" class="search-input">
+            <input type="button" value="Submit" id="btn" class="search-button">
+        </section>
+        <section id="responsedetails">
+
+        </section>
+    </main>
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $("#btn").live("click", function () {
+            var gabisa = $("#gabisa").val();
+            var ward = $("#ward").val();
+            var kitta = $("#kitta").val();
+            $.ajax({
+                type: "POST",
+                url: "search.php",
+                data: "gabisa=" + gabisa + '&ward=' + ward + '&kitta=' + kitta,
+                success: function (data) {
+                    // alert(data);
+                    document.getElementById("responsedetails").innerHTML = data;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
