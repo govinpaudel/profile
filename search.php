@@ -26,7 +26,7 @@ if ($result->num_rows > 0)
 }
 } else
 {
-  echo "<h5>कुनै पनि रेकर्ड फेला परेन ।</h>";
+  echo "<table><tr><td>कुनै पनि रेकर्ड फेला परेन ।</td></tr></table>";
 } 
      
 ?>   
