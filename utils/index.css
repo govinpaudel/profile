@@ -1,0 +1,25 @@
+* {
+    font-family: kalimati Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.btn-link {
+    margin-top: 1rem;
+    padding: 20px;
+    text-decoration: none;
+    height: 10rem;
+    background-color: #5D3C94;
+    cursor: pointer;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}

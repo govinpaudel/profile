@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Utilities</title>
+    <link rel="stylesheet" href="../styles/kittasearch.css">
+    <link rel="stylesheet" href="landaddsub.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="../images/logo.png" alt="my logo" class="logo">
+        <nav class="navbar">
+            <ul class="navbar-list">
+                <li><a class="navbar-link" href="/utils/">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <div class="container">
+            <h5>जम्मा क्षेत्रफल</h5>
+            <table id="tablesum">
+                <thead>
+                    <th id="dr"></th>
+                    <th id="da"></th>
+                    <th id="dp"></th>
+                    <th id="dd"></th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <table id="tablesum">
+                <thead>
+                    <th>रोपनी</th>
+                    <th>आना</th>
+                    <th>पैसा</th>
+                    <th>दाम</th>
+                    <th>जम्मा दाम</th>
+                </thead>
+                <tbody id="add">
+                    <tr>
+                        <td id="fr"></td>
+                        <td id="fa"></td>
+                        <td id="fp"></td>
+                        <td id="fd"></td>
+                        <td id="td"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" class="form-control" id='r' min="0" max="999" value=0
+                                onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='a' min="0" max="15" value=0 onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='p' min="0" max="3" value=0 onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='d' min="0" max="3" value=0 onchange="calc()">
+                        </td>
+                        <td>
+                            <button id="addbtn" class="btn" onclick="add()">+Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>घटाउने क्षेत्रफलहरु</h5>
+            <table>
+                <thead>
+                    <th>रोपनी</th>
+                    <th>आना</th>
+                    <th>पैसा</th>
+                    <th>दाम</th>
+                    <th>कृयाकलाप</th>
+                </thead>
+                <tbody id="sub">
+                    <tr>
+                        <td id="fr1"></td>
+                        <td id="fa1"></td>
+                        <td id="fp1"></td>
+                        <td id="fd1"></td>
+                        <td id="td1"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" class="form-control" id='r1' min="0" max="999" value=0
+                                onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='a1' min="0" max="15" value=0
+                                onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='p1' min="0" max="3" value=0 onchange="calc()">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" id='d1' min="0" max="3" value=0 onchange="calc()">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="sub()">+Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>       
+        </div>
+        <script>
+            function calc() {
+                x = 0;
+                y = 0;
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i += 1) {
+                    if (inputs[i].id == "r") { x = x + (parseInt(inputs[i].value) * 16 * 4 * 4) }
+                    else if (inputs[i].id == "a") { x = x + (parseInt(inputs[i].value) * 4 * 4) }
+                    else if (inputs[i].id == "p") { x = x + (parseInt(inputs[i].value) * 4) }
+                    else if (inputs[i].id == "d") { x = x + parseInt(inputs[i].value) }
+                    else if (inputs[i].id == "r1") { y = y + (parseInt(inputs[i].value) * 16 * 4 * 4) }
+                    else if (inputs[i].id == "a1") { y = y + (parseInt(inputs[i].value) * 4 * 4) }
+                    else if (inputs[i].id == "p1") { y = y + (parseInt(inputs[i].value) * 4) }
+                    else if (inputs[i].id == "d1") { y = y + parseInt(inputs[i].value) }
+                }
+                document.getElementById("td").innerHTML = x;
+                //get add ropani
+                ur = Math.floor(x / 256);
+                document.getElementById("fr").innerHTML = ur;
+                bd = x - (ur * 256);
+                ua = Math.floor(bd / 16)
+                document.getElementById("fa").innerHTML = ua;
+                bd = bd - (ua * 16);
+                ud = Math.floor(bd / 4)
+                document.getElementById("fp").innerHTML = ud;
+                bd = bd - (ud * 4);
+                document.getElementById("fd").innerHTML = bd;
+                //get sub ropani
+                document.getElementById("td1").innerHTML = y;
+                ur1 = Math.floor(y / 256);
+                document.getElementById("fr1").innerHTML = ur1;
+                bd1 = y - (ur1 * 256);
+                ua1 = Math.floor(bd1 / 16)
+                document.getElementById("fa1").innerHTML = ua1;
+                bd1 = bd1 - (ua1 * 16);
+                ud1 = Math.floor(bd1 / 4)
+                document.getElementById("fp1").innerHTML = ud1;
+                bd1 = bd1 - (ud1 * 4);
+                document.getElementById("fd1").innerHTML = bd1;
+                //get difference
+                dd = Math.abs(x - y);
+                dr = Math.floor(dd / 256);
+                document.getElementById("dr").innerHTML = dr + " रोपनी";
+                dd = dd - (dr * 256);
+                da = Math.floor(dd / 16)
+                document.getElementById("da").innerHTML = da + " आना";
+                dd = dd - (da * 16);
+                dp = Math.floor(dd / 4)
+                document.getElementById("dp").innerHTML = dp;
+                dd = dd - (dp * 4);
+                document.getElementById("dd").innerHTML = dd;
+                if ((x - y) < 0) {
+                    document.getElementById("dr").style.backgroundColor = "red";
+                    document.getElementById("da").style.backgroundColor = "red";
+                    document.getElementById("dp").style.backgroundColor = "red";
+                    document.getElementById("dd").style.backgroundColor = "red";
+                }
+                else {
+                    document.getElementById("dr").style.backgroundColor = "lightblue";
+                    document.getElementById("da").style.backgroundColor = "lightblue";
+                    document.getElementById("dp").style.backgroundColor = "lightblue";
+                    document.getElementById("dd").style.backgroundColor = "lightblue";
+                }
+            };
+            function add() {
+                $("#add").append("<tr><td><input class='form-control' id='r' min='0' value=0 max='999' type='number' onchange='calc()'></td><td><input class='form-control' id='a' min='0' value=0 max='15' type='number' onchange='calc()'></td><td><input class='form-control' id='p' min='0' value=0 max='3' type='number' onchange='calc()'></td><td><input class='form-control' id='d' min='0' value=0 max='3' type='number' onchange='calc()'></td></tr>")
+            }
+            function sub() {
+                $("#sub").append("<tr><td><input class='form-control' id='r1' min='0' value=0 max='999' type='number' onchange='calc()'></td><td><input class='form-control' id='a1' min='0' value=0 max='15' type='number' onchange='calc()'></td><td><input class='form-control' id='p1' min='0' value=0 max='3' type='number' onchange='calc()'></td><td><input class='form-control' id='d1' min='0' value=0 max='3' type='number' onchange='calc()'></td></tr>")
+            }
+        </script>
+        <script src="../scripts/jquery-1.7.2.min.js"></script>
+    </main>
+</body>
+
+</html>
